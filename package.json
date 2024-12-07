@@ -1,0 +1,25 @@
+{
+  "name": "express-project",
+  "version": "1.0.0",
+  "description": "express-js project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "express",
+    "node-js",
+    "js",
+    "api"
+  ],
+  "author": "akbarali",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
