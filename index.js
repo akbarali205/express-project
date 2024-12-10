@@ -1,6 +1,6 @@
 import express from 'express';
 const app = express();
-import {create} from 'express-handlebars'
+import { create } from 'express-handlebars'
 import chalk from 'chalk';
 import AuthRouter from './routes/auth.js';
 import ProductRouter from './routes/products.js';
@@ -14,6 +14,9 @@ const hbs = create({
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', './views');
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 app.use(AuthRouter);
 app.use(ProductRouter);

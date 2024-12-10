@@ -15,4 +15,18 @@ router.get('/register', (req, res) => {
     })
 })
 
+router.post('/login', (req, res) => {
+    // TODO: Validate user credentials and redirect to home page
+    console.log(req.body);
+    
+    res.redirect('/')
+})
+
+router.post('/register', (req, res) => {
+    // TODO: Validate user credentials and redirect to home page
+    console.log(req.body);
+    
+    res.redirect('/')
+})
+
 export default router;
