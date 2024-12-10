@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
 const app = express();
-const {create} = require('express-handlebars');
+import {create} from 'express-handlebars'
+import chalk from 'chalk';
 
 
 const hbs = create({
@@ -24,4 +25,5 @@ app.get('/about', (req, res) => {
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
+    console.log(chalk.blue.underline(`http://localhost:${PORT}`));
 })

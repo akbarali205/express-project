@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "express-js project",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
@@ -16,6 +17,7 @@
   "author": "akbarali",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^5.3.0",
     "express": "^4.21.2",
     "express-handlebars": "^8.0.1"
   },
