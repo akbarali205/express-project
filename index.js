@@ -21,5 +21,5 @@ app.use(ProductRouter);
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
-    console.log(chalk.blue.underline(`http://localhost:${PORT}`));
+    console.log(chalk.gray.bgYellow('App link is'), chalk.blue.underline(`http://localhost:${PORT}`));
 })

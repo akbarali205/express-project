@@ -13,11 +13,25 @@
             </a>
 
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/products">Products</a>
-                <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/add">Add</a>
+
+                <a class="
+                    me-3 py-2 link-body-emphasis
+                    {{#if isProduct}}
+                     text-success
+                     {{else}}
+                     text-decoration-none
+                     {{/if}}
+                " href="/products">Products</a>
+                <a class="me-3 py-2 link-body-emphasis
+                    {{#if isAdd}}
+                     text-success
+                     {{else}}
+                     text-decoration-none
+                     {{/if}}
+                " href="/add">Add</a>
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                    <a href="/login" type="button" class="btn btn-primary">Login</a>
-                    <a href="/register" type="button" class="btn btn-success">Register</a>
+                    <a href="/login" type="button" class="btn btn-primary {{#if isLogin}} active {{/if}}">Login</a>
+                    <a href="/register" type="button" class="btn btn-success {{#if isRegister}} active {{/if}}">Register</a>
                 </div>
             </nav>
         </div>
