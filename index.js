@@ -2,14 +2,17 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { create } from 'express-handlebars'
 import chalk from 'chalk';
-import * as dotenv from 'dotenv';
 import flash from 'connect-flash';
 import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import authTokenMid from './src/middleware/authToken.js';
+import * as dotenv from 'dotenv';
 dotenv.config()
 
+
 // Routers
-import AuthRouter from './routes/auth.js';
-import ProductRouter from './routes/products.js';
+import AuthRouter from './src/routes/auth.js';
+import ProductRouter from './src/routes/products.js';
 
 const app = express();
 
@@ -25,8 +28,10 @@ app.set('views', './views');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(express.json());
+app.use(cookieParser())
 app.use(session({ secret: 'akbarali', resave: false, saveUninitialized: false }));
 app.use(flash());
+app.use(authTokenMid)
 
 app.use(AuthRouter);
 app.use(ProductRouter);
