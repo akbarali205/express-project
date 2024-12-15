@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import { create } from 'express-handlebars'
 import chalk from 'chalk';
 import * as dotenv from 'dotenv';
+import flash from 'connect-flash';
+import session from 'express-session';
 dotenv.config()
 
 // Routers
@@ -23,6 +25,8 @@ app.set('views', './views');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(express.json());
+app.use(session({ secret: 'akbarali', resave: false, saveUninitialized: false }));
+app.use(flash());
 
 app.use(AuthRouter);
 app.use(ProductRouter);
