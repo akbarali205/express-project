@@ -5,6 +5,10 @@ import bcrypt from 'bcrypt'
 import { generateToken } from '../services/token.js';
 
 router.get('/login', (req, res) => {
+    if (req.cookies.token) {
+        res.redirect('/')
+        return;
+    }
     res.render('login', {
         title: 'Login | Ali',
         isLogin: true,
@@ -13,6 +17,10 @@ router.get('/login', (req, res) => {
 })
 
 router.get('/register', (req, res) => {
+    if (req.cookies.token) {
+        res.redirect('/')
+        return;
+    }
     res.render('register', {
         title: 'Register | Ali',
         isRegister: true,
@@ -72,6 +80,13 @@ router.post('/register', async (req, res) => {
 
 
     res.redirect('/')
+});
+
+
+// logout
+router.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.redirect('/');
 })
 
 export default router;
