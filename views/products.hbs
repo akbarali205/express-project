@@ -1,1 +1,34 @@
-<h1>Prodeucts page</h1>
+{{#if myProducts.length}}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {{#each myProducts}}
+    <div class="col">
+        <div class="card shadow-sm">
+            <img src="{{img}}" alt="img">
+            <div class="card-body">
+                <p class="card-text fw-bold">{{title}}</p>
+                <p>{{description}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="avatar bg-primary text-white d-flex justify-content-center align-items-center">
+                        <span>{{getName user.firstName user.lastName}}</span>
+                    </div>
+                    <small class="text-body-secondary fs-5">{{price}}.00$</small>
+                </div>
+            </div>
+            {{!-- <div class="card-footer">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-primary">Detail</button>
+                    {{#if @root.token}}
+                    {{#ifequal user @root.userId}}
+                    <button type="button" class="btn btn-outline-secondary">Edit</button>
+                    <button type="button" class="btn btn-outline-danger">Delete</button>
+                    {{/ifequal}}
+                    {{/if}}
+                </div>
+            </div> --}}
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{else}}
+<p>Products unavialable</p>
+{{/if}}

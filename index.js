@@ -7,6 +7,8 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import authTokenMid from './src/middleware/authToken.js';
 import * as dotenv from 'dotenv';
+import userMiddleware from './src/middleware/user.js';
+import hbsHelpers from './src/hbsHelpers/index.js';
 dotenv.config()
 
 
@@ -18,7 +20,8 @@ const app = express();
 
 const hbs = create({
     defaultLayout: 'main',
-    extname: 'hbs'
+    extname: 'hbs',
+    helpers: hbsHelpers
 })
 
 app.engine('hbs', hbs.engine);
@@ -34,6 +37,7 @@ app.use(session({
 }));
 app.use(flash());
 app.use(authTokenMid)
+app.use(userMiddleware)
 
 app.use(AuthRouter);
 app.use(ProductRouter);

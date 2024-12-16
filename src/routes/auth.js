@@ -70,7 +70,6 @@ router.post('/register', async (req, res) => {
     const user = await User.create(userData);
     const token = generateToken(user._id);
     res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
-
     res.redirect('/')
 });
 

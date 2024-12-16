@@ -4,9 +4,13 @@ import Product from '../models/Product.js';
 import auth from '../middleware/auth.js';
 import userMiddleware from '../middleware/user.js';
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+    const products = await Product.find({}).sort({ createdAt: -1 }).lean()
+    const id = req.userId;
     res.render('index', {
-        title: 'Shop | Ali'
+        title: 'Shop | Ali',
+        products: products,
+        userId: id ? id.toString() : false
     })
 })
 
@@ -18,10 +22,14 @@ router.get('/add', auth, (req, res) => {
     })
 })
 
-router.get('/products', (req, res) => {
+router.get('/products', async (req, res) => {
+    const id = req.userId;
+    const user = id ? id.toString() : null
+    const myProducts = await Product.find({ user }).populate('user').lean()
     res.render('products', {
         title: 'Products | Ali',
-        isProduct: true
+        isProduct: true,
+        myProducts: myProducts
     })
 })
 
