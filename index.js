@@ -29,7 +29,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(cookieParser())
-app.use(session({ secret: 'akbarali', resave: false, saveUninitialized: false }));
+app.use(session({
+    secret: 'akbarali', resave: false, saveUninitialized: false
+}));
 app.use(flash());
 app.use(authTokenMid)
 

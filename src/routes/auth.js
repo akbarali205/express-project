@@ -3,12 +3,9 @@ const router = Router();
 import User from '../models/User.js'
 import bcrypt from 'bcrypt'
 import { generateToken } from '../services/token.js';
+import loginMiddleware from '../middleware/login.js'
 
-router.get('/login', (req, res) => {
-    if (req.cookies.token) {
-        res.redirect('/')
-        return;
-    }
+router.get('/login', loginMiddleware, (req, res) => {
     res.render('login', {
         title: 'Login | Ali',
         isLogin: true,
@@ -16,11 +13,7 @@ router.get('/login', (req, res) => {
     })
 })
 
-router.get('/register', (req, res) => {
-    if (req.cookies.token) {
-        res.redirect('/')
-        return;
-    }
+router.get('/register', loginMiddleware, (req, res) => {
     res.render('register', {
         title: 'Register | Ali',
         isRegister: true,
@@ -48,7 +41,7 @@ router.post('/login', async (req, res) => {
         return
     }
     const token = generateToken(findUser._id);
-    res.cookie('token', token, { httpOnly: true, secure: true });
+    res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
     res.redirect('/')
 })
 
@@ -76,8 +69,7 @@ router.post('/register', async (req, res) => {
     }
     const user = await User.create(userData);
     const token = generateToken(user._id);
-    res.cookie('token', token, { httpOnly: true, secure: true });
-
+    res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
 
     res.redirect('/')
 });
