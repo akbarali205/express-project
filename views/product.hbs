@@ -1,0 +1,12 @@
+<div class="w-100">
+    <img src="{{p.img}}" alt="img" class="w-100">
+</div>
+<div class="product-body p-3">
+    <h2>{{p.title}}</h2>
+    <p>{{p.description}}</p>
+    <div class="d-flex justify-content-between align-items-center">
+        <p class="m-0">{{formatDate p.createdAt}}</p>
+        <p class="fs-3 m-0 text-primary">{{p.user.firstName}} {{p.user.lastName}}</p>
+        <span class="text-muted fs-5">${{p.price}}</span>
+    </div>
+</div>

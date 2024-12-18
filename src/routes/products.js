@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { Types } from 'mongoose'
 const router = Router();
 import Product from '../models/Product.js';
 import auth from '../middleware/auth.js';
@@ -33,6 +34,30 @@ router.get('/products', async (req, res) => {
     })
 })
 
+router.get('/product/:id', async (req, res) => {
+    const id = req.params.id;
+    if (Types.ObjectId.isValid(id)) {
+        const p = await Product.findById(id).populate('user').lean()
+        res.render('product', {
+            title: 'Product | Ali',
+            p: p
+        })
+        return
+    }
+    res.send('Protuct not found')
+})
+
+router.get('/edit-product/:id', auth, async (req, res) => {
+    const id = req.params.id;
+    const p = await Product.findById(id).lean()
+    res.render('edit-product', {
+        title: 'Edit Product | Ali',
+        p: p,
+        errEditProduct: req.flash('errEditProduct')
+    })
+
+})
+
 router.post('/add-product', userMiddleware, async (req, res) => {
     const { title, description, img, price } = req.body;
     if (!title || !description || !img || !price) {
@@ -41,6 +66,27 @@ router.post('/add-product', userMiddleware, async (req, res) => {
     }
     await Product.create({ ...req.body, user: req.userId });
     res.redirect('/')
+})
+
+// edit product
+router.post('/edit-product/:id', userMiddleware, async (req, res) => {
+    const id = req.params.id;
+    const { title, description, img, price } = req.body;
+    if (!title || !description || !img || !price) {
+        req.flash('errEditProduct', 'Please fill all the fields');
+        return res.redirect(`/edit-product/${id}`);
+    }
+    const product = await Product.findByIdAndUpdate(id, req.body, { new: true })
+    console.log(product);
+    res.redirect('/products');
+})
+
+
+// delete product
+router.post('/delete-product/:id', auth, async (req, res) => {
+    const id = req.params.id;
+    await Product.findByIdAndDelete(id);
+    res.redirect('/products');
 })
 
 export default router;
